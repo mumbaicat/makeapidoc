@@ -42,6 +42,9 @@
 ### 4.查看文档
 	项目名称.html ,默认是api.html  
 
+![代码](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/code.png)  
+![效果](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/html.png)  
+
 ## 将来版本:
  * 在线ajax  
  * ...
