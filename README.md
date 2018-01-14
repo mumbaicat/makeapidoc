@@ -55,23 +55,27 @@
 ## 如何使用  
 
 ### 1.放置文件
-	将 mumbaicat 放在 extend 目录下  
+	如果你是Thinkphp5，则将 src 目录里的 mumbaicat 放在 TP5的extend 目录下 。
 
 ### 2.引入
 	use mumbaicat\apidoc\ApiDoc;  
 
 ### 3.在合适地方实例化
-	$doc = new ApiDoc('../application'); //参数1是代码目录,参数2是保存路径,参数2默认是当前路径.
-	$doc->setName('api'); //设置项目成功,不写此行默认是api,生成 项目名称.html 的文件,注意保存路径下是否有同名的文件,会被覆盖.
+	$doc = new ApiDoc('../application'); //参数1是代码目录，参数2是保存路径，参数2默认是当前路径。
+	$doc->setName('api'); //设置项目名称，不写此行默认是api，生成 项目名称.html 的文件，注意保存路径下是否有同名的文件，会被覆盖。
 	$doc->make();  //生成
 
 ### 4.查看文档
 	项目名称.html ,默认是api.html  
 
-![代码](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/code.png)  
-![效果](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/html.png)  
-
 ## 将来版本:
  * 在线ajax  
  * 点击URL自动复制  
- * ...
+ * 兼容更低版本的PHP
+ * 目录式
+ * ...  
+
+## 截图:
+![代码](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/code.png)  
+![效果](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/html.png)  
+![f12](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/request.png)  
