@@ -259,5 +259,5 @@ class ApiDoc
     }
 }
 
-$doc = new ApiDoc('C:\Users\pxlol\Desktop\备份\application\api');
-$doc->make();
+// $doc = new ApiDoc('C:\Users\pxlol\Desktop\备份\application\api');
+// $doc->make();
