@@ -90,6 +90,18 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
     </div>
 </body>
 <script type="text/javascript">
+$(document).ready(function() {
+    $(".right-item a").click(function() {
+        $("html,body").animate({
+            scrollTop: $($(this).attr("href")).offset().top + "px"
+            },
+            {
+            duration: 500,
+            easing: "swing"
+        });
+        return false;
+    });
+});
 function request(pmethod,purl,pdata=null){
     $.ajax({
         type:pmethod,

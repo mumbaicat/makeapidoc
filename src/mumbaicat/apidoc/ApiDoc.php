@@ -127,7 +127,7 @@ class ApiDoc
      * @return string html代码
      */
     private function makeTable($data){
-        $return = '<div id="api.php/index/index/list" class="api-main">
+        $return = '<div id="'.base64_encode($data['requestUrl']).'" class="api-main">
         <div class="title">'.$data['methodName'].'</div>
         <div class="body">
             <table class="layui-table">
@@ -229,7 +229,7 @@ class ApiDoc
             $return .= '<blockquote class="layui-elem-quote layui-quote-nm right-item-title">'.$d.'</blockquote>
             <ul class="right-item">';
             foreach($file as $one){
-                $return .= '<li><a href="#'.$one['requestUrl'].'"><cite>'.$one['methodName'].'</cite><em>'.$one['requestUrl'].'</em></a></li>';
+                $return .= '<li><a href="#'.base64_encode($one['requestUrl']).'"><cite>'.$one['methodName'].'</cite><em>'.$one['requestUrl'].'</em></a></li>';
             }
             $return .= '</ul>';
         }
@@ -264,7 +264,7 @@ class ApiDoc
         $tempData = str_replace('{main}',$inputData,$tempData);
         $tempData = str_replace('{right}',$this->makeRight($rightList),$tempData);
         $tempData = str_replace('{date}',date('Y-m-d H:i:s'),$tempData);
-        if($fetch){
+        if($fetch==false){
             file_put_contents($this->savePath.$this->name.'.html',$tempData);
         }else{
             return $tempData;
