@@ -18,7 +18,7 @@ class ApiDoc
             $this->savePath = $savePath;
         }
     }
-    
+
     /**
      * 设置项目名称
      * @param string $name 项目名称
@@ -44,7 +44,7 @@ class ApiDoc
             if ($one == '.' or $one == '..') {
                 continue;
             }
-            $onePath = $path . '\\' . $one;
+            $onePath = $path . DIRECTORY_SEPARATOR . $one;
             $isDir = is_dir($onePath);
             $extName = substr($one, -4, 4);
             if ($isDir == false and $extName == '.php') {
