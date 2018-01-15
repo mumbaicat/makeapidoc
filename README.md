@@ -1,4 +1,4 @@
-# php注释自动生成api文档  
+# php注释自动生成api文档   v1.1
 作者: [Dust](http://dust101.lofter.com)  
 ----
 ## 注释示例:
