@@ -1,4 +1,4 @@
-# php注释自动生成api文档   v1.1
+# php注释自动生成api文档   v1.2
 作者: [Dust](http://dust101.lofter.com)  
 ----
 ## 注释示例:
@@ -66,7 +66,7 @@
 	$doc->setName('api');
 	//设置项目名称，不写此行默认是api，生成 项目名称.html 的文件，注意保存路径下是否有同名的文件，会被覆盖。
 	$doc->make();
-	//生成
+	//生成 或者 echo $doc->make(true); 生成并返回页面.
 
 ### 4.查看文档
 	项目名称.html ,默认是api.html  

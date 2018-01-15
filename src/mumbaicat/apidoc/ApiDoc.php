@@ -239,8 +239,9 @@ class ApiDoc
 
     /**
      * 开始执行生成
+     * @param bool $fetch 是否方法返回,make(true) 可以用来直接输出
      */
-    public function make()
+    public function make($fetch=false)
     {
         $fileList = array();
         $this->getFileList($this->documentPath,$fileList);
@@ -263,6 +264,11 @@ class ApiDoc
         $tempData = str_replace('{main}',$inputData,$tempData);
         $tempData = str_replace('{right}',$this->makeRight($rightList),$tempData);
         $tempData = str_replace('{date}',date('Y-m-d H:i:s'),$tempData);
-        file_put_contents($this->savePath.$this->name.'.html',$tempData);
+        if($fetch){
+            file_put_contents($this->savePath.$this->name.'.html',$tempData);
+        }else{
+            return $tempData;
+        }
     }
+
 }
