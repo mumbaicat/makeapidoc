@@ -8,6 +8,10 @@ class ApiDoc
     protected $documentPath;
     protected $savePath;
     protected $name = 'api';
+    protected $controllerChange = true;
+    protected $controllerTimes = 1;
+    protected $methodChange = true;
+    protected $methodTimes = 2;
 
     public function __construct($documentPath,$savePath=null)
     {
@@ -22,9 +26,51 @@ class ApiDoc
     /**
      * 设置项目名称
      * @param string $name 项目名称
+     * @return void
      */
     public function setName($name){
         $this->name = $name;
+    }
+
+    /**
+     * 设置是否开启驼峰转匈牙利
+     * @param bool $controller 文件名 true/false
+     * @param bool $method 方法名 true/false
+     * @return void
+     */
+    public function setChange($controller=true,$method=true){
+        $this->controllerChange = $controller;
+        $this->methodChange = $method;
+    }
+
+    /**
+     * 驼峰转匈牙利转换条件 (出现几次大写字母才转换)
+     * @param integer $controller 文件名
+     * @param integer $method 方法名
+     * @return void
+     */
+    public function setTimes($controller=1,$method=2){
+        $this->controllerTimes = $controller;
+        $this->methodTimes = $method;
+    }
+
+    /**
+     * 大驼峰命名法转匈牙利命名法
+     * @param string $str 字符串
+     * @param integer $times 出现几次大写字母才转换,默认1次
+     * @return string
+     */
+    private function humpToLine($str,$times=1){
+        if(preg_match_all('/[A-Z]/',$str) >= $times){
+            $str = preg_replace_callback('/([A-Z]{1})/',function($matches){
+                return '_'.strtolower($matches[0]);
+            },$str);
+            if($str[0]=='_'){
+                $str = substr_replace($str,'',0,1);
+            }
+            return $str;
+        }
+        return $str;
     }
 
     /**
@@ -72,10 +118,12 @@ class ApiDoc
     /**
      * 解析每一条可以生成API文档的注释成数组
      * @param string $data 注释文本 catchEvery返回的每个元素
+     * @param string $fileName 文件名
      * @return array
      */
-    private function parse($data)
+    private function parse($data,$fileName)
     {
+        $fileName = basename($fileName,'.php');
         $return = [];
         preg_match_all('/(public|private|protected)?\s*function\s+(.*?)\(/', $data, $matches);
         $return['funcName'] = !empty($matches[2][0]) ? $matches[2][0] : '[null]';
@@ -84,6 +132,14 @@ class ApiDoc
         preg_match_all('/\s+\*\s+api\s+(.*?)\s+(.*?)\s+(\s+\*\s+@)?.*/', $data, $matches);
         $return['requestName'] = !empty($matches[1][0]) ? $matches[1][0] : '[null]';
         $return['requestUrl'] = !empty($matches[2][0]) ? $matches[2][0] : '[null]';
+
+        if($this->controllerChange == true){
+            $return['requestUrl'] = str_replace('{controller}',$this->humpToLine($fileName,$this->controllerTimes),$return['requestUrl']);
+        }
+        if($this->methodChange == true){
+            $return['requestUrl'] = str_replace('{method}',$this->humpToLine($return['funcName'],$this->methodTimes),$return['requestUrl']);
+        }
+
         preg_match_all('/\s+\*\s+@param\s+(.*?)\s+(.*?)\s+(.*?)\s/', $data, $matches);
         if(empty($matches[1])){
             $return['param'] = [];
@@ -251,7 +307,7 @@ class ApiDoc
             $fileData = file_get_contents($fileName);
             $data = $this->catchEvery($fileData);
             foreach ($data as $one) {
-                $infoData = $this->parse($one);
+                $infoData = $this->parse($one,$fileName);
                 $rightList[basename($fileName)][] = [
                     'methodName' => $infoData['methodName'],
                     'requestUrl' => $infoData['requestUrl'],
