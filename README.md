@@ -1,6 +1,9 @@
 # php注释自动生成api文档   v1.3
 作者: [Dust](http://dust101.lofter.com)  
 ----
+```  
+composer require 
+```  
 
 ## 注释示例:
 	与普通注释互不影响，要生成记得在第三行开头要有 api 请求方式 url 。  
@@ -89,6 +92,6 @@
  * ...  
 
 ## 截图:
-![代码](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/code.png)  
-![效果](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/html.png)  
-![f12](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/request.png)  
+![代码](https://github.com/mumbaicat/makeapidoc/raw/master/screenshots/code.png)  
+![效果](https://github.com/mumbaicat/makeapidoc/raw/master/screenshots/html.png)  
+![f12](https://github.com/mumbaicat/makeapidoc/raw/master/screenshots/request.png)  
