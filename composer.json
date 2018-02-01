@@ -11,11 +11,11 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Phpml": "src/"
+        "psr-4": {
+            "mumabicat\\makeapidoc": "src"
         }
     },
     "require": {
-        
+        "php": ">=5.3.0"
     }
 }
