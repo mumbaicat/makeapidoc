@@ -92,6 +92,6 @@ composer require mumbaicat/makeapidoc
  * ...  
 
 ## 截图:
-![代码](https://github.com/mumbaicat/makeapidoc/raw/master/screenshots/code.png)  
-![效果](https://github.com/mumbaicat/makeapidoc/raw/master/screenshots/html.png)  
-![f12](https://github.com/mumbaicat/makeapidoc/raw/master/screenshots/request.png)  
+![代码](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/code.png)  
+![效果](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/html.png)  
+![f12](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/request.png)  
