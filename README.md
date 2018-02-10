@@ -1,4 +1,4 @@
-# php注释自动生成api文档   v1.3
+# php注释自动生成api文档   v1.4
 作者: [Dust](http://dust101.lofter.com)  
 ----
 ```  
@@ -69,10 +69,11 @@ composer require mumbaicat/makeapidoc
 ## 如何使用  
 
 ### 1.放置文件
-	如果你是Thinkphp5，则将 src 目录里的 mumbaicat 放在 TP5的extend 目录下 。
+	如果你是Thinkphp5，则将 extend 目录里的 mumbaicat 放在 TP5 的 extend 目录下 。
 
 ### 2.引入
-	use mumbaicat\apidoc\ApiDoc;  
+	// use mumbaicat\apidoc\ApiDoc;    旧版
+    use mumbaicat\makeapidoc\ApiDoc;    // 新版
 
 ### 3.在合适地方实例化
 	$doc = new ApiDoc('../application');
@@ -92,6 +93,6 @@ composer require mumbaicat/makeapidoc
  * ...  
 
 ## 截图:
-![代码](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/code.png)  
-![效果](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/html.png)  
-![f12](https://github.com/mumbaicat/makeapidoc/raw/master/Screenshots/request.png)  
+![代码](https://github.com/mumbaicat/makeapidoc/raw/master/screenshot/code.png)  
+![效果](https://github.com/mumbaicat/makeapidoc/raw/master/screenshot/html.png)  
+![f12](https://github.com/mumbaicat/makeapidoc/raw/master/screenshot/request.png)  

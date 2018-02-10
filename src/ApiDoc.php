@@ -1,5 +1,5 @@
 <?php
-namespace mumbaicat\apidoc;
+namespace mumbaicat\makeapidoc;
 
 class ApiDoc
 {
@@ -13,6 +13,9 @@ class ApiDoc
     protected $methodChange = true;
     protected $methodTimes = 2;
 
+    public static function test(){
+        echo 'hello';
+    }
     public function __construct($documentPath,$savePath=null)
     {
         $this->documentPath = $documentPath;
@@ -167,11 +170,17 @@ class ApiDoc
                     $about = $var;
                     $var = '';
                 }
-                $return['return'][] = [
-                    'type' => $type,
-                    'var' => $var,
-                    'about' => $about,
-                ];
+
+
+                if($var!='*/' and $var!=''){
+                    // echo "<script>console.log('{$fileName}-{$return['funcName']}-{$var}')</script>";
+                    $return['return'][] = [
+                        'type' => $type,
+                        'var' => $var,
+                        'about' => $about,
+                    ];
+                }
+
             }
         }
         return $return;
