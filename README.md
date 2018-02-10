@@ -1,4 +1,4 @@
-# php注释自动生成api文档   v1.5
+# php注释自动生成api文档   v1.6
 作者: [Dust](http://dust101.lofter.com)  
 ----
 ```  

@@ -159,6 +159,7 @@ class ApiDoc
             }
         }
         preg_match_all('/\s+\*\s+@return\s+(.*?)\s+(.*?)\s+(.*?)\s/', $data, $matches);
+        $return['return'] = [];
         if(empty($matches[1])){
             $return['return'] = [];
         }else{
