@@ -2,7 +2,7 @@
 作者: [Dust](http://dust101.lofter.com)  
 ----
 ```  
-composer require mumbaicat/makeapidoc
+composer require mumbaicat/makeapidoc "1.6"
 ```  
 
 ## 注释示例:
