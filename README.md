@@ -11,7 +11,8 @@ composer require mumbaicat/makeapidoc "1.7"
 ```
     /**
      * 获取所有列表
-     * api GET api.php/index/index/all
+     * @url api.php/index/index/all
+     * @method POST
      * @param integer $page 页数
      * @param integer $limit 每页个数
      * @return integer $code 状态码
@@ -34,7 +35,8 @@ composer require mumbaicat/makeapidoc "1.7"
 
     /**
      * 获取我的列表
-     * api GET api.php/index/index/my_list
+     * @url api.php/index/index/my_list
+     * @method GET
      * @return json json {'code':200,'msg':'json示例'}
      */
     public function my_list($page,$limit){
@@ -43,7 +45,8 @@ composer require mumbaicat/makeapidoc "1.7"
 
     /**
      * 获取我的名称
-     * api GET/POST api.php/index/index/get_my_name
+     * @url api.php/index/index/get_my_name
+     * @method GET
      * @return string 名称
      */
     public function get_my_name(){
@@ -52,7 +55,8 @@ composer require mumbaicat/makeapidoc "1.7"
 
     /**
      * 添加数据
-     * api POST api.php/index/index/insert
+     * @url api.php/index/index/insert
+     * @method GET
      * @param string $name 姓名
      * @param string $age 年龄
      * @return inetger $code 状态码
