@@ -4,10 +4,11 @@ namespace mumbaicat\makeapidoc;
 class ApiDoc
 {
 
-    private $mainRegex = '/(\/\*\*.*?\*\sapi.*?\*\/\s*(public|private|protected)?\s*function\s+.*?\s*?\()/s';
+    private $mainRegex = '/(\/\*\*.*?\*\s(api)?.*?\*\/\s*(public|private|protected)?\s*function\s+.*?\s*?\()/s';
     protected $documentPath;
     protected $savePath;
     protected $name = 'api';
+    public $url = 'http://localhost';
     protected $controllerChange = true;
     protected $controllerTimes = 1;
     protected $methodChange = true;
@@ -110,8 +111,7 @@ class ApiDoc
      */
     private function catchEvery($data)
     {
-        preg_match_all($this->mainRegex, $data, $matches);
-        if (empty($matches[1])) {
+        if (!preg_match_all($this->mainRegex, $data, $matches)) {
             return [];
         } else {
             return $matches[1];
@@ -128,20 +128,24 @@ class ApiDoc
     {
         $fileName = basename($fileName,'.php');
         $return = [];
-        preg_match_all('/(public|private|protected)?\s*function\s+(.*?)\(/', $data, $matches);
-        $return['funcName'] = !empty($matches[2][0]) ? $matches[2][0] : '[null]';
-        preg_match_all('/\/\*\*\s+\*\s+(.*?)\s+\*\s+api\s+/s', $data, $matches);
-        $return['methodName'] = !empty($matches[1][0]) ? $matches[1][0] : '[null]';
-        preg_match_all('/\s+\*\s+api\s+(.*?)\s+(.*?)\s+(\s+\*\s+@)?.*/', $data, $matches);
-        $return['requestName'] = !empty($matches[1][0]) ? $matches[1][0] : '[null]';
-        $return['requestUrl'] = !empty($matches[2][0]) ? $matches[2][0] : '[null]';
-
+        preg_match_all('/(public|private|protected)?\s*function\s+(?<funcName>.*?)\(/', $data, $matches);
+        $return['funcName'] = !empty($matches['funcName'][0]) ? $matches['funcName'][0] : '[null]';
+        preg_match_all('/\/\*\*\s+\*\s+(?<methodName>.*?)\s+\*/s', $data, $matches);
+        $return['methodName'] = !empty($matches['methodName'][0]) ? $matches['methodName'][0] : '[null]';
+        preg_match_all('/\s+\*\s+\@method\s+(?<requestName>.*)?.*/', $data, $matches);
+        $return['requestName'] = !empty($matches['requestName'][0]) ? $matches['requestName'][0] : '[null]';
+        preg_match_all('/\s+\*\s+\@url\s+(?<requestUrl>.*)?.*/', $data, $matches);
+        $return['requestUrl'] = !empty($matches['requestUrl'][0]) ? $matches['requestUrl'][0] : '[null]';
+        if($return['requestName']=='[null]' and $return['requestUrl']=='[null]'){
+            return false;
+        }
         if($this->controllerChange == true){
             $return['requestUrl'] = str_replace('{controller}',$this->humpToLine($fileName,$this->controllerTimes),$return['requestUrl']);
         }
         if($this->methodChange == true){
-            $return['requestUrl'] = str_replace('{method}',$this->humpToLine($return['funcName'],$this->methodTimes),$return['requestUrl']);
+            $return['requestUrl'] = str_replace('{action}',$this->humpToLine($return['funcName'],$this->methodTimes),$return['requestUrl']);
         }
+        $return['requestUrl'] = str_replace('{url}',$this->url,$return['requestUrl']);
 
         preg_match_all('/\s+\*\s+@param\s+(.*?)\s+(.*?)\s+(.*?)\s/', $data, $matches);
         if(empty($matches[1])){
@@ -184,7 +188,9 @@ class ApiDoc
 
             }
         }
+
         return $return;
+
     }
 
     /**
@@ -305,9 +311,9 @@ class ApiDoc
 
     /**
      * 开始执行生成
-     * @param bool $fetch 是否方法返回,make(true) 可以用来直接输出
+     * @param bool $fetch 是否直接实时输出，默认true，否则生成文件。
      */
-    public function make($fetch=false)
+    public function make($fetch=true)
     {
         $fileList = array();
         $this->getFileList($this->documentPath,$fileList);
@@ -316,13 +322,16 @@ class ApiDoc
         foreach($fileList as $fileName){
             $fileData = file_get_contents($fileName);
             $data = $this->catchEvery($fileData);
+
             foreach ($data as $one) {
                 $infoData = $this->parse($one,$fileName);
-                $rightList[basename($fileName)][] = [
-                    'methodName' => $infoData['methodName'],
-                    'requestUrl' => $infoData['requestUrl'],
-                ];
-                $inputData .= $this->makeTable($infoData);
+                if($infoData != false){
+                    $rightList[basename($fileName)][] = [
+                        'methodName' => $infoData['methodName'],
+                        'requestUrl' => $infoData['requestUrl'],
+                    ];
+                    $inputData .= $this->makeTable($infoData);
+                }
             }
         }
         $tempData = file_get_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'temp.html');

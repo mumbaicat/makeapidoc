@@ -70,7 +70,7 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
     <div class="fly-panel main">
         <div style="margin-bottom:30px;">
             <p style="float:left;">按下 <code>CTRL + F</code> 可以进行搜索。</p>
-            <p style="float:right;">内置Jquery，打开F12可以进行操作。内置request('post','url',data)进行http操作。</p>
+            <p style="float:right;">内置Jquery，打开F12可以进行操作，比如说 $.ajax() 。</p>
         </div>
         <hr style="margin-bottom:20px;clear:both;">
 
@@ -102,16 +102,5 @@ $(document).ready(function() {
         return false;
     });
 });
-function request(pmethod,purl,pdata=null){
-    $.ajax({
-        type:pmethod,
-        async:false,
-        url:purl,
-        data:pdata,
-        success:function(x){
-            return x;
-        }
-    });
-}
 </script>
 </html>
