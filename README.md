@@ -84,6 +84,4 @@ composer require mumbaicat/makeapidoc "1.7"
  * ...  
 
 ## 截图:
-![代码](https://github.com/mumbaicat/makeapidoc/raw/master/screenshot/code.png)  
 ![效果](https://github.com/mumbaicat/makeapidoc/raw/master/screenshot/html.png)  
-![f12](https://github.com/mumbaicat/makeapidoc/raw/master/screenshot/request.png)  
